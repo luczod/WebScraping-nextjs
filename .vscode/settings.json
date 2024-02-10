@@ -1,0 +1,11 @@
+{
+  "code-runner.executorMap": {
+    "typescript": "npx sucrase-node"
+  },
+  "code-runner.clearPreviousOutput": true,
+  "files.associations": {
+    "*.scss": "postcss",
+    "*.css": "tailwindcss",
+    "*.env":"shellscript"
+  }
+}
