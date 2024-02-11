@@ -1,6 +1,7 @@
 'use client';
 
 import { scrapeAndStoreProduct } from '@/lib/Actions';
+import Image from 'next/image';
 import { FormEvent, useState } from 'react';
 
 const isValidAmazonProductURL = (url: string): boolean => {
@@ -35,7 +36,7 @@ export function SearchBar() {
       setIsLoading(true);
 
       // Scrape the product page
-      const product = await scrapeAndStoreProduct(searchPrompt);
+      const scrapeProduct = await scrapeAndStoreProduct(searchPrompt);
     } catch (error) {
       console.log(error);
     } finally {
@@ -52,9 +53,26 @@ export function SearchBar() {
         onChange={(e) => setSearchPrompt(e.target.value)}
         placeholder="Enter product link"
       />
-      <button type="submit" className="searchbar-btn">
-        Search
+      <button
+        type="submit"
+        disabled={isLoading}
+        className="searchbar-btn disabled:cursor-not-allowed"
+      >
+        {!isLoading && 'Search'}
+        {isLoading && <Spinner />}
       </button>
     </form>
+  );
+}
+
+function Spinner() {
+  return (
+    <Image
+      src={'/assets/icons/spinner.svg'}
+      width={24}
+      height={24}
+      alt="spinner"
+      className="mx-3"
+    />
   );
 }
