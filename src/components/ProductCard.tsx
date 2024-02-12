@@ -9,7 +9,7 @@ type props = {
 export function ProductCard({ product }: props) {
   return (
     <Link href={`/products/${product._id}`} className="product-card">
-      <div className="product-card_img-container">
+      <div className="product-card_img-container border border-[#CDDBFF]">
         <Image
           src={product.image}
           alt={product.title}

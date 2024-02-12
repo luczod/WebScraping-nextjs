@@ -26,7 +26,7 @@ async function ProductsDetails({ params: { id } }: Props) {
             alt={product.title}
             width={580}
             height={400}
-            className="mx-auto object-cover"
+            className="max-h-full object-contain w-full h-full bg-transparent"
           />
         </div>
 

@@ -1,6 +1,8 @@
+import Link from 'next/link';
+
 export default function Page404() {
   return (
-    <section className="md:flex min-h-screen">
+    <section className="md:flex min-h-screen min-w-full fixed top-0 left-0">
       <div className="w-full md:w-1/2 bg-white flex items-center justify-center">
         <div className="max-w-sm m-8">
           <div className="text-black text-5xl md:text-15xl font-black">404</div>
@@ -8,11 +10,11 @@ export default function Page404() {
           <p className="text-grey-darker text-2xl md:text-3xl font-light mb-8 leading-normal">
             Sorry, the page you are looking for could not be found.
           </p>
-          <a href="/">
+          <Link href="/">
             <button className="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
               Go Home
             </button>
-          </a>
+          </Link>
         </div>
       </div>
       <div
