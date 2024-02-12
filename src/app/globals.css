@@ -17,7 +17,7 @@
 
 @layer utilities {
   .btn {
-    @apply py-4 px-4 bg-secondary hover:bg-opacity-70 rounded-[30px] text-white text-lg font-semibold;
+    @apply p-3 bg-secondary hover:bg-opacity-70 rounded-lg text-white text-lg font-semibold;
   }
 
   .head-text {

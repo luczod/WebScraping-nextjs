@@ -7,5 +7,11 @@
     "*.scss": "postcss",
     "*.css": "tailwindcss",
     "*.env": "shellscript"
-  }
+  },
+  "vsicons.associations.folders": [
+    {
+      "icon": "server",
+      "extensions": ["Actions"]
+    }
+  ]
 }
