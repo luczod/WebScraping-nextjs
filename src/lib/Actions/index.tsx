@@ -2,7 +2,7 @@
 
 import { ProductDB } from '../models/product.model';
 import { connectDB } from '../mongoose';
-import { scrapeAmazonProduct } from '../scrape';
+import { scrapeAmazonProduct } from '../scraper';
 import { getAveragePrice, getHighestPrice, getLowestPrice } from '../utils';
 import { revalidatePath } from 'next/cache';
 
