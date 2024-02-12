@@ -1,4 +1,4 @@
-import { PriceHistoryItem, Product } from '@/types';
+import { PriceHistoryItem, TProduct } from '@/types';
 
 // Extracts and returns the price from a list of possible elements.
 export function extractPrice(...elements: any) {
@@ -39,10 +39,12 @@ export function extractDescription($: any) {
   for (const selector of selectors) {
     const elements = $(selector);
     if (elements.length > 0) {
-      const textContent = elements
+      let textContent = elements
         .map((_: any, element: any) => $(element).text().trim())
         .get()
         .join('\n');
+
+      textContent = trimBreaklines(textContent);
       return textContent;
     }
   }
@@ -88,3 +90,7 @@ export const formatNumber = (num: number = 0) => {
     maximumFractionDigits: 0,
   });
 };
+
+function trimBreaklines(text: string): string {
+  return text.replace(/(\n{3,})/g, '\n');
+}

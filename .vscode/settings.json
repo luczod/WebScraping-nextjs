@@ -1,11 +1,11 @@
 {
   "code-runner.executorMap": {
-    "typescript": "npx sucrase-node"
+    "typescript": "node -r sucrase/register"
   },
   "code-runner.clearPreviousOutput": true,
   "files.associations": {
     "*.scss": "postcss",
     "*.css": "tailwindcss",
-    "*.env":"shellscript"
+    "*.env": "shellscript"
   }
 }
