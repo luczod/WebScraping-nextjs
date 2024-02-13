@@ -1,4 +1,4 @@
-import { PriceHistoryItem, TProduct } from '@/types';
+import { TPriceHistoryItem, TProduct } from '@/types';
 
 // Extracts and returns the price from a list of possible elements.
 export function extractPrice(...elements: any) {
@@ -53,7 +53,7 @@ export function extractDescription($: any) {
   return '';
 }
 
-export function getHighestPrice(priceList: PriceHistoryItem[]) {
+export function getHighestPrice(priceList: TPriceHistoryItem[]) {
   let highestPrice = priceList[0];
 
   for (let i = 0; i < priceList.length; i++) {
@@ -65,7 +65,7 @@ export function getHighestPrice(priceList: PriceHistoryItem[]) {
   return highestPrice.price;
 }
 
-export function getLowestPrice(priceList: PriceHistoryItem[]) {
+export function getLowestPrice(priceList: TPriceHistoryItem[]) {
   let lowestPrice = priceList[0];
 
   for (let i = 0; i < priceList.length; i++) {
@@ -77,7 +77,7 @@ export function getLowestPrice(priceList: PriceHistoryItem[]) {
   return lowestPrice.price;
 }
 
-export function getAveragePrice(priceList: PriceHistoryItem[]) {
+export function getAveragePrice(priceList: TPriceHistoryItem[]) {
   const sumOfPrices = priceList.reduce((acc, curr) => acc + curr.price, 0);
   const averagePrice = sumOfPrices / priceList.length || 0;
 
@@ -91,6 +91,7 @@ export const formatNumber = (num: number = 0) => {
   });
 };
 
+// remove break line in sequencial
 function trimBreaklines(text: string): string {
   return text.replace(/(\n{3,})/g, '\n');
 }

@@ -1,8 +1,8 @@
-export type PriceHistoryItem = {
+export type TPriceHistoryItem = {
   price: number;
 };
 
-export type User = {
+export type TUser = {
   email: string;
 };
 
@@ -14,7 +14,7 @@ export type TProduct = {
   title: string;
   currentPrice: number;
   originalPrice: number;
-  priceHistory: PriceHistoryItem[] | [];
+  priceHistory: TPriceHistoryItem[] | [];
   highestPrice: number;
   lowestPrice: number;
   averagePrice: number;
@@ -24,17 +24,17 @@ export type TProduct = {
   reviewsCount: number;
   stars: number;
   isOutOfStock: Boolean;
-  users?: User[];
+  users?: TUser[];
 };
 
-export type NotificationType = 'WELCOME' | 'CHANGE_OF_STOCK' | 'LOWEST_PRICE' | 'THRESHOLD_MET';
+export type TNotification = 'WELCOME' | 'CHANGE_OF_STOCK' | 'LOWEST_PRICE' | 'THRESHOLD_MET';
 
-export type EmailContent = {
+export type TEmailContent = {
   subject: string;
   body: string;
 };
 
-export type EmailProductInfo = {
+export type TEmailProductInfo = {
   title: string;
   url: string;
 };

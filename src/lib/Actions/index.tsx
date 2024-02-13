@@ -1,10 +1,12 @@
 'use server';
 
+import { TUser } from '@/types';
 import { ProductDB } from '../models/product.model';
 import { connectDB } from '../mongoose';
 import { scrapeAmazonProduct } from '../scraper';
 import { getAveragePrice, getHighestPrice, getLowestPrice } from '../utils';
 import { revalidatePath } from 'next/cache';
+import { generateEmailBody, sendEmail } from '../nodemailer';
 
 export async function scrapeAndStoreProduct(productUrl: string) {
   if (productUrl) {
@@ -80,6 +82,23 @@ export async function getSimilarProducts(productId: string) {
     if (!similarProduct) return null;
 
     return similarProduct;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function addUserEmailToProduct(productId: string, userEmail: string) {
+  try {
+    const product = await ProductDB.findById(productId);
+    if (!product) return;
+
+    const userExists = product.users.some((user: TUser) => user.email === userEmail);
+    if (!userExists) {
+      product.users.push({ email: userEmail });
+      await product.save();
+      const emailContent = await generateEmailBody(product, 'WELCOME');
+      await sendEmail(emailContent, [userEmail]);
+    }
   } catch (error) {
     console.log(error);
   }
