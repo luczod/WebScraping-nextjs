@@ -2,7 +2,7 @@
 
 import { TUser } from '@/types';
 import { ProductDB } from '../models/product.model';
-import { connectDB } from '../mongoose';
+import { connectToDB } from '../mongoose';
 import { scrapeAmazonProduct } from '../scraper';
 import { getAveragePrice, getHighestPrice, getLowestPrice } from '../utils';
 import { revalidatePath } from 'next/cache';
@@ -11,7 +11,7 @@ import { generateEmailBody, sendEmail } from '../nodemailer';
 export async function scrapeAndStoreProduct(productUrl: string) {
   if (productUrl) {
     try {
-      connectDB();
+      connectToDB();
 
       const scrapedProduct = await scrapeAmazonProduct(productUrl);
       if (!scrapedProduct) return;
@@ -52,7 +52,7 @@ export async function scrapeAndStoreProduct(productUrl: string) {
 
 export async function getProductsById(productId: string) {
   try {
-    connectDB();
+    connectToDB();
     const product = await ProductDB.findOne({ _id: productId });
     if (!product) return null;
     return product;
@@ -63,7 +63,7 @@ export async function getProductsById(productId: string) {
 
 export async function getProductsAll() {
   try {
-    connectDB();
+    connectToDB();
     const products = await ProductDB.find();
     if (!products) return null;
     return products;
@@ -74,7 +74,7 @@ export async function getProductsAll() {
 
 export async function getSimilarProducts(productId: string) {
   try {
-    connectDB();
+    connectToDB();
     const currentProduct = await ProductDB.findById(productId);
     if (!currentProduct) return null;
 
