@@ -7,13 +7,17 @@ import { getHighestPrice } from '@/lib/utils';
 import { getLowestPrice } from '@/lib/utils';
 import { NextResponse } from 'next/server';
 
+export const maxDuration = 300; // 5 minutes
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function GET() {
   try {
     connectToDB();
     const products = await ProductDB.find({});
     if (!products) throw new Error('Not Found');
 
-    // SCRAPE LATESRT PRODUCT DETAILS & UPDATE DB
+    // 1.SCRAPE LATESRT PRODUCT DETAILS & UPDATE DB
     const updateAllProducts = await Promise.all(
       products.map(async (currentProduct) => {
         const scrapedProduct = await scrapeAmazonProduct(currentProduct.url);
@@ -36,11 +40,11 @@ export async function GET() {
 
         const updatedProduct = await ProductDB.findOneAndUpdate(
           {
-            url: scrapedProduct.url,
+            url: product.url,
           },
           product,
         );
-        // CHECK EACH PRODUCT'S STATUS & SEND EMAIL ACCORDINGLY
+        // 2.CHECK EACH PRODUCT'S STATUS & SEND EMAIL ACCORDINGLY
         const emailNotifType = getEmailNotifType(scrapedProduct, currentProduct);
 
         if (emailNotifType && updatedProduct.users.length > 0) {
@@ -48,6 +52,7 @@ export async function GET() {
             title: updatedProduct.title,
             url: updatedProduct.url,
           };
+
           // Construct emailContent
           const emailContent = await generateEmailBody(productInfo, emailNotifType);
           // Get array of user emails
@@ -55,6 +60,7 @@ export async function GET() {
           // Send email notification
           await sendEmail(emailContent, userEmails);
         }
+
         return updatedProduct;
       }),
     );
