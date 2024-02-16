@@ -1,7 +1,8 @@
 'use server';
-import axios from 'axios';
+
 import * as cheerio from 'cheerio';
 import { extractCurrency, extractDescription, extractPrice } from '../utils';
+import { selectAPI } from './options';
 
 export async function scrapeAmazonProduct(url: string) {
   if (!url) return;
@@ -24,7 +25,7 @@ export async function scrapeAmazonProduct(url: string) {
 
   try {
     // fetch data
-    const response = await axios.get(url, options);
+    const response = await selectAPI(url, 'Other');
     const $ = cheerio.load(response.data);
     // extract the product title
     const title = $('#productTitle').text().trim();
@@ -78,6 +79,6 @@ export async function scrapeAmazonProduct(url: string) {
 
     return data;
   } catch (error: any) {
-    throw new Error(`Failed to create or update product ${error.message}`);
+    throw new Error(`Failed to create or update product\n 🛠️ ${error.message}`);
   }
 }
