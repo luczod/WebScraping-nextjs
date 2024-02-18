@@ -135,15 +135,15 @@ async function ProductsDetails({ params: { id } }: Props) {
         </button>
       </div>
       {similarProducts && similarProducts?.length > 0 && (
-        <div className="py-14 flex flex-col gap-2 w-full">
+        <section className="py-14 flex flex-col gap-2 w-full">
           <p className="section-text">Similar Products</p>
 
-          <div className="flex flex-wrap gap-10 mt-7 w-full">
+          <div className="flex flex-wrap gap-x-8 gap-y-16">
             {similarProducts.map((product) => (
               <ProductCard key={product._id} product={product} />
             ))}
           </div>
-        </div>
+        </section>
       )}
     </div>
   );

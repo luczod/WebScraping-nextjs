@@ -78,7 +78,7 @@ export async function getSimilarProducts(productId: string) {
     const currentProduct = await ProductDB.findById(productId);
     if (!currentProduct) return null;
 
-    const similarProduct = await ProductDB.find({ _id: { $ne: productId } }).limit(3);
+    const similarProduct = await ProductDB.find({ _id: { $ne: productId } }).limit(4);
     if (!similarProduct) return null;
 
     return similarProduct;
